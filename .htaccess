@@ -1,0 +1,17 @@
+Options +FollowSymlinks -Indexes
+RewriteEngine On
+
+# redir www.blogotext.org to blogotext.org
+RewriteCond %{HTTP_HOST} ^www\.blogotext\.org [NC]
+RewriteRule ^(.*)$ https://blogotext.org/$1 [L,R=301]
+
+# redir to https
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$ https://blogotext.org/$1 [L,R=301]
+
+<IfModule mod_setenvif.c>
+  <IfModule mod_headers.c>
+    BrowserMatch MSIE ie
+    Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+  </IfModule>
+</IfModule>
